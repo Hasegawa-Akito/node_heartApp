@@ -5,7 +5,9 @@ import { io } from "socket.io-client";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 //socket.ioで通信
-const socket = io("http://localhost:8000");
+//const socket = io("http://localhost:8000");
+const socket = io("/");
+
 // サーバに接続できた場合のイベント処理を定義する
 socket.on("connect", () => {
   console.log(`socket.connectを出力`);
