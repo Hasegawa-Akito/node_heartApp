@@ -4,24 +4,34 @@ import { useState,useEffect } from 'react'
 import { io } from "socket.io-client";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
+//socket.ioで通信
+const socket = io("http://localhost:8000");
+// サーバに接続できた場合のイベント処理を定義する
+socket.on("connect", () => {
+  console.log(`socket.connectを出力`);
+  console.log(socket.connect()); // サーバに接続できたかどうかを表示
+});
+
 function App() {
   const [message, setMessage] = useState('');
+  const [heartSize, setHeartSize] = useState(1);
+
   useEffect(() =>{
-    fetch('/api')
-      .then((res) => res.json())
-      .then((data) => setMessage(data.message));
+    socket.on("heart", (heart) => {
+      console.log(heart)
+      document.getElementById("heart").style.transform = "scale(" + heart + "," + heart + ")";
+    });
+    
   },[]);
 
-  function onClickButton(){
-    //socket.ioで通信
-    const socket = io("http://localhost:8000");
-    // サーバに接続できた場合のイベント処理を定義する
-    socket.on("connect", () => {
-      console.log(`socket.connectを出力`);
-      console.log(socket.connect()); // サーバに接続できたかどうかを表示
-    });
+  
 
-    document.getElementById("heart").style.transform = "scale(" + 60 + "," + 60 + ")";
+  function onClickButton(){
+    
+    socket.emit("heartNum", 1);
+
+    // setHeartSize(heartSize+1);
+    // document.getElementById("heart").style.transform = "scale(" + heartSize + "," + heartSize + ")";
   }
 
   

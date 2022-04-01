@@ -31,9 +31,17 @@ const io = new Server(server, {
 
 // ブラウザから接続されたときの処理を定義する
 io.on("connection", (socket) => { // ブラウザから接続されたときの処理
+    let i = 1;
     console.log("a user connected");
     socket.on("disconnect", () => { // ブラウザが切断したときの処理
         console.log("user disconnected");
+    });
+
+    socket.on("heartNum", (heartNum) => {
+        i++;
+        io.emit("heart", i);
+        console.log(heartNum);
+        
     });
 });
 
