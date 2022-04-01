@@ -5,6 +5,23 @@ const http = require("http");
 const server = http.createServer(app);
 const port = process.env.PORT || 8000;
 
+const mysql = require('mysql');
+
+const connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: 'mysql_haseaki'
+});
+
+connection.connect(function(error) {
+    if (error) {
+        console.error('Database Connect Error:' + error);
+        return;
+    } else {
+        console.log('Database Connection Success: id=' + connection.threadId);
+    }
+});
+
 app.use(express.static(path.join(__dirname, '../frontend/build')));
 
 // 別オリジンからのアクセスを許可する（CORSモジュール利用）
