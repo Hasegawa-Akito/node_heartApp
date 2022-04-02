@@ -13,10 +13,7 @@ const port = process.env.PORT || 8000;
 //'./database/connection'でmysqlと接続を行う
 const connection = require('./database/connection');
 
-connection.connect(function(err) {
-    if (err) throw err;
-    console.log('Connected');
-});
+
 
 
 app.use(express.static(path.join(__dirname, '../frontend/build')));
@@ -26,8 +23,15 @@ const cors = require("cors");
 app.use(cors());
 
 
-app.get("/api", (req, res) => {
-    res.json({ message: "hello world" });
+app.get("/nowHeart", (req, res) => {
+    
+	connection.query("select * from heart", function (err, results, fields) {  
+        if (err) throw err;
+        
+        res.json({ heart: results[0].heart_num });
+        
+	});
+    //res.json({ message: "hello world" });
 });
 
 //react(frontend)のindex.htmlが表示されるようにする
@@ -47,16 +51,28 @@ const io = new Server(server, {
 
 // ブラウザから接続されたときの処理を定義する
 io.on("connection", (socket) => { // ブラウザから接続されたときの処理
-    let i = 1;
+    
     console.log("a user connected");
+
     socket.on("disconnect", () => { // ブラウザが切断したときの処理
         console.log("user disconnected");
     });
 
     socket.on("heartNum", (heartNum) => {
-        i++;
-        io.emit("heart", i);
-        console.log(heartNum);
+        connection.query("select * from heart", function (err, results, fields) {  
+            if (err) throw err;
+            const heart_num = results[0].heart_num + heartNum;
+            
+            connection.query(
+                'UPDATE heart SET heart_num = ? WHERE id = 1', [heart_num], function(err, results) {
+                    if (err) throw err;
+                    io.emit("heart", heart_num);
+    
+                }
+            );
+        });
+        
+        
         
     });
 });

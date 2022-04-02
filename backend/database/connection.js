@@ -8,5 +8,15 @@ const connection = mysql.createConnection({
   database: process.env.MYSQL_DATABASE
 });
 
+connection.connect(function(err) {
+    if (err) throw err;
+    console.log('Connected');
+    connection.query('CREATE TABLE IF NOT EXISTS heart(id INT AUTO_INCREMENT PRIMARY KEY NOT NULL, heart_num INT NOT NULL)', function (err, result) {  
+        if (err) throw err;  
+        console.log('ok');  
+    });
+
+});
+
 // Export Connection
 module.exports = connection;
