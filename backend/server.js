@@ -6,22 +6,18 @@ const server = http.createServer(app);
 
 require('dotenv').config();
 
+//本番環境はサーバーの環境変数process.env.POR、ローカルは8000
 const port = process.env.PORT || 8000;
 
-const mysql = require('mysql');
 
-// //mysqlに接続
-// const connection = mysql.createConnection({
-//   host: process.env.MYSQL_HOST,
-//   user: process.env.MYSQL_USER,
-//   password: process.env.MYSQL_PASSWORD,
-//   database: process.env.MYSQL_DATABASE
-// });
+//'./database/connection'でmysqlと接続を行う
+const connection = require('./database/connection');
 
-// connection.connect(function(err) {
-//     if (err) throw err;
-//     console.log('Connected');
-// });
+connection.connect(function(err) {
+    if (err) throw err;
+    console.log('Connected');
+});
+
 
 app.use(express.static(path.join(__dirname, '../frontend/build')));
 
@@ -34,9 +30,11 @@ app.get("/api", (req, res) => {
     res.json({ message: "hello world" });
 });
 
+//react(frontend)のindex.htmlが表示されるようにする
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname,'../frontend/build/index.html'));
 });
+
 
 // サーバーオブジェクトsocketioを作成する
 const { Server } = require("socket.io");
