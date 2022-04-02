@@ -3,24 +3,25 @@ const app = express();
 const path = require('path');
 const http = require("http");
 const server = http.createServer(app);
+
+require('dotenv').config();
+
 const port = process.env.PORT || 8000;
 
 const mysql = require('mysql');
 
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'mysql_haseaki'
-});
+// //mysqlに接続
+// const connection = mysql.createConnection({
+//   host: process.env.MYSQL_HOST,
+//   user: process.env.MYSQL_USER,
+//   password: process.env.MYSQL_PASSWORD,
+//   database: process.env.MYSQL_DATABASE
+// });
 
-connection.connect(function(error) {
-    if (error) {
-        console.error('Database Connect Error:' + error);
-        return;
-    } else {
-        console.log('Database Connection Success: id=' + connection.threadId);
-    }
-});
+// connection.connect(function(err) {
+//     if (err) throw err;
+//     console.log('Connected');
+// });
 
 app.use(express.static(path.join(__dirname, '../frontend/build')));
 
