@@ -16,20 +16,19 @@ socket.on("connect", () => {
 
 function App() {
   const [message, setMessage] = useState('');
-  const [heartSize, setHeartSize] = useState(1);
 
   useEffect(() =>{
     fetch('/nowHeart')
       .then((res) => res.json())
       .then((data) => document.getElementById("heart").style.transform = "scale(" + data.heart + "," + data.heart + ")");
-
+    
     socket.on("heart", (heart) => {
       console.log(heart)
       document.getElementById("heart").style.transform = "scale(" + heart + "," + heart + ")";
     });
-    
   },[]);
 
+  
   
 
   function onClickButton(){

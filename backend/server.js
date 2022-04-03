@@ -34,6 +34,7 @@ app.get("/nowHeart", (req, res) => {
     //res.json({ message: "hello world" });
 });
 
+
 //react(frontend)のindex.htmlが表示されるようにする
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname,'../frontend/build/index.html'));
