@@ -2,6 +2,7 @@ import './App.css';
 import Header from './component/Header';
 import Heart from './component/Heart';
 import Message from './component/Message';
+//ルーティング
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 function App() {

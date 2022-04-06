@@ -2,7 +2,7 @@ const mysql = require('mysql');
 
 //mysqlに接続
 const connection = mysql.createConnection({
-  //localでは.envファイルの値を使用,本番環境ではconfig setで設定
+  //localでは.envファイルの値を使用,herokuではconfig setで設定
   host: process.env.MYSQL_HOST,
   user: process.env.MYSQL_USER,
   password: process.env.MYSQL_PASSWORD,

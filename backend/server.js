@@ -6,7 +6,7 @@ const server = http.createServer(app);
 
 require('dotenv').config();
 
-//本番環境はサーバーの環境変数process.env.POR、ローカルは8000
+//本番環境はサーバーの環境変数process.env.PORT、ローカルは8000
 const port = process.env.PORT || 8000;
 
 
@@ -15,7 +15,7 @@ const connection = require('./database/connection');
 
 
 
-
+//react(frontend)のbuildの中のhtmlファイルを表示するため
 app.use(express.static(path.join(__dirname, '../frontend/build')));
 
 // 別オリジンからのアクセスを許可する（CORSモジュール利用）
