@@ -11,7 +11,7 @@ const port = process.env.PORT || 8000;
 
 
 //'./database/connection'でmysqlと接続を行う
-const connection = require('./database/connection');
+const pool = require('./database/connection');
 
 
 
@@ -25,16 +25,23 @@ app.use(cors());
 
 app.get("/nowHeart", (req, res) => {
     
+    pool.getConnection(function(err, connection){
+
 	connection.query("select * from heart", function (err, results, fields) {  
         if (err) throw err;
         
         res.json({ heart: results[0].heart_num });
         
 	});
+
+    });
+
 });
 
 app.get("/showMessages", (req, res) => {
     
+    pool.getConnection(function(err, connection){
+
 	connection.query("select * from message", function (err, results, fields) {  
         if (err) throw err;
         console.log(results[1].message)
@@ -44,6 +51,8 @@ app.get("/showMessages", (req, res) => {
         res.send(results);
         
 	});
+
+    });
 });
 
 //react(frontend)のindex.htmlが表示されるようにする
