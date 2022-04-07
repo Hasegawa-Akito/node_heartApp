@@ -27,12 +27,12 @@ app.get("/nowHeart", (req, res) => {
     
     pool.getConnection(function(err, connection){
 
-	connection.query("select * from heart", function (err, results, fields) {  
-        if (err) throw err;
-        
-        res.json({ heart: results[0].heart_num });
-        
-	});
+        connection.query("select * from heart", function (err, results, fields) {  
+            if (err) throw err;
+            
+            res.json({ heart: results[0].heart_num });
+            
+        });
 
     });
 
@@ -42,12 +42,12 @@ app.get("/showMessages", (req, res) => {
     
     pool.getConnection(function(err, connection){
 
-	connection.query("select * from message", function (err, results, fields) {  
-        if (err) throw err;
-        
-        res.send(results);
-        
-	});
+        connection.query("select * from message", function (err, results, fields) {  
+            if (err) throw err;
+            
+            res.send(results);
+            
+        });
 
     });
 });
