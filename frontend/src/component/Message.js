@@ -23,7 +23,7 @@ function Message() {
 
             //画面下までスクロール
             window.scrollTo({
-                top: 10000000000,
+                top: 1000000000,
                 behavior: "smooth"
             });
         });
