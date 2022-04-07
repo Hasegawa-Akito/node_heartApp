@@ -31,9 +31,20 @@ app.get("/nowHeart", (req, res) => {
         res.json({ heart: results[0].heart_num });
         
 	});
-    //res.json({ message: "hello world" });
 });
 
+app.get("/showMessages", (req, res) => {
+    
+	connection.query("select * from message", function (err, results, fields) {  
+        if (err) throw err;
+        console.log(results[1].message)
+        results.forEach((result) => {
+            console.log(result.id)
+        });
+        res.send(results);
+        
+	});
+});
 
 //react(frontend)のindex.htmlが表示されるようにする
 app.get('*', (req, res) => {
