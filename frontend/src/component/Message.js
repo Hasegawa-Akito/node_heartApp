@@ -19,7 +19,7 @@ function Message() {
                     <div class="my-1 p-3 bg-body rounded shadow-sm">
                         <h6 class="border-bottom pb-2 mb-0">メッセージ</h6>
 
-                        {/* {messageList.map((messageItem) => {
+                        {messageList.map((messageItem) => {
                             return (
                                 <div class="text-muted pt-3">
                     
@@ -29,7 +29,7 @@ function Message() {
                                     </p>
                                 </div>
                             );
-                        })} */}
+                        })}
                         
                     
                     </div>
