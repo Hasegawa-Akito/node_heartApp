@@ -22,9 +22,7 @@ function Message() {
                         {messageList.map((messageItem) => {
                             return (
                                 <div class="text-muted pt-3">
-                    
                                     <p class="pb-3 mb-0 small lh-sm border-bottom">
-                                    <strong class="d-block text-gray-dark"> { messageItem.createTime } </strong>
                                         <h5 class="mt-2"><b> { messageItem.message } </b></h5>
                                     </p>
                                 </div>
