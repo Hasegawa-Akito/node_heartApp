@@ -4,11 +4,7 @@ import { io } from "socket.io-client";
 //socket.ioで通信
 const socket = io("/");
 
-// サーバに接続できた場合のイベント処理を定義する
-socket.on("connect", () => {
-  console.log(`socket.connectを出力`);
-  console.log(socket.connect()); // サーバに接続できたかどうかを表示
-});
+
 
 function Heart (){
     useEffect(() =>{
@@ -24,15 +20,6 @@ function Heart (){
         });
     },[]);
     
-      
-      
-    
-    function onClickButton(){
-        socket.emit("heartNum", 1);
-
-    // setHeartSize(heartSize+1);
-    // document.getElementById("heart").style.transform = "scale(" + heartSize + "," + heartSize + ")";
-    }
 
     return (
         <div>
@@ -45,7 +32,6 @@ function Heart (){
                 </div>
                 
             </main>
-            <button type="button" onClick={onClickButton} >close</button>
         </div>
     );
 }

@@ -76,20 +76,29 @@ io.on("connection", (socket) => { // ブラウザから接続されたときの�
         console.log("user disconnected");
     });
 
-    socket.on("heartNum", (heartNum) => {
-        connection.query("select * from heart", function (err, results, fields) {  
-            if (err) throw err;
-            const heart_num = results[0].heart_num + heartNum;
-            
-            connection.query(
-                'UPDATE heart SET heart_num = ? WHERE id = 1', [heart_num], function(err, results) {
+
+    socket.on("message", (message) => {
+        pool.getConnection(function(err, connection){
+            connection.query("INSERT INTO message(roomId, message) VALUES(?,?)", [1, message], function (err, results, fields) {  
+                if (err) throw err;
+
+                connection.query("select * from heart", function (err, results, fields) {  
                     if (err) throw err;
-                    io.emit("heart", heart_num);
-    
-                }
-            );
+                    const heart_num = results[0].heart_num + 1;
+                    
+                    connection.query(
+                        'UPDATE heart SET heart_num = ? WHERE id = 1', [heart_num], function(err, results) {
+                            if (err) throw err;
+                            io.emit("heart", heart_num);
+                            io.emit("showMessage", message);
+                            
+                        }
+                    );
+                });
+            });
+
+            
         });
-        
         
         
     });
