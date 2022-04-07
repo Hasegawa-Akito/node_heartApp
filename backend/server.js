@@ -44,10 +44,7 @@ app.get("/showMessages", (req, res) => {
 
 	connection.query("select * from message", function (err, results, fields) {  
         if (err) throw err;
-        console.log(results[1].message)
-        results.forEach((result) => {
-            console.log(result.id)
-        });
+        
         res.send(results);
         
 	});
