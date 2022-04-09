@@ -1,6 +1,6 @@
 const mysql = require('mysql');
 
-//mysqlに接続
+//mysqlに接続 poolを使い時間が経ってっ接続が切れるのを防ぐ
 const pool = mysql.createPool({
   //localでは.envファイルの値を使用,herokuではconfig setで設定
   host: process.env.MYSQL_HOST,
