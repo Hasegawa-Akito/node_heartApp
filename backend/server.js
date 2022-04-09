@@ -15,7 +15,7 @@ const pool = require('./database/connection');
 
 
 
-//react(frontend)のbuildの中のhtmlファイルを表示するため
+//react(frontend)のbuildの中のhtmlファイルを表示するため。frontendのディレクトリでnpm run buildをする必要がある
 app.use(express.static(path.join(__dirname, '../frontend/build')));
 
 // 別オリジンからのアクセスを許可する（CORSモジュール利用）
