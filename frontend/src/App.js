@@ -3,8 +3,7 @@ import Header from './component/Header';
 import Heart from './component/Heart';
 import Message from './component/Message';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-// socket.io-clientをインポートする
-import { io } from "socket.io-client";
+
 
 
 
@@ -13,7 +12,10 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Header />
+        <Routes>
+          {/* パラメータを渡す。 Header側ではuseParamsで受け取る */}
+          <Route path="/:pageName" element={<Header />} />
+        </Routes>
         <Routes>
           <Route path="/heart" element={<Heart />} />
           <Route path="/message" element={<Message />} /> 

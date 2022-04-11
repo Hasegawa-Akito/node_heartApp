@@ -3,11 +3,16 @@ header {
   width: 100%;
   position: relative;
   z-index: 10;
-  /* position: fixed;
+  position: fixed;
   z-index: 999;
   top: 0;
-  left: 0; */
+  left: 0;
 }
+
+.heart-icon {
+  color: #ffffff;
+}
+
 main {
   width: 100%;
   height: 300px;
@@ -19,11 +24,6 @@ main {
   margin-top: 150px;
 }
 
-/* .scroll {
-  width: 100%;        
-  height: 400px;                
-  overflow-y: scroll;    
-} */
 
 .msgContent {
   text-align: center;
