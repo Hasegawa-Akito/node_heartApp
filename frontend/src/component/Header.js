@@ -1,20 +1,24 @@
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, NavLink } from 'react-router-dom';
 
 function Header (){
 
     //urlのパラメータによって表示する遷移アイコンを変更
     const { pageName } = useParams();
     let icon = "";
-    if (pageName.indexOf("heart") >= 0) {
+    if (pageName.indexOf("heart") >= 0){
         icon = (
-            <i class="heart-icon fa-solid fa-comment"></i>
+            // 押されたら画面遷移
+            <NavLink to="/message" exact><i class="heart-icon fa-solid fa-comment"></i></NavLink>
         );
     }
-    else if (pageName.indexOf("message") >= 0) {
+    else if (pageName.indexOf("message") >= 0){
+        
         icon = (
-            <i class="heart-icon fas fa-heart"></i>
+            // 押されたら画面遷移
+            <NavLink to="/heart" exact><i class="heart-icon fas fa-heart"></i></NavLink>     
         );
     }
+    
     
 
     return (
@@ -27,7 +31,7 @@ function Header (){
               </a>
 
               { icon }
-              
+
             </div>
           </div>
 
