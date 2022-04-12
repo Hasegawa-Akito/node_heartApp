@@ -3,16 +3,26 @@ const app = express();
 const path = require('path');
 const http = require("http");
 const server = http.createServer(app);
-
 require('dotenv').config();
 
 //本番環境はサーバーの環境変数process.env.PORT、ローカルは8000
 const port = process.env.PORT || 8000;
 
-
 //'./database/connection'でmysqlと接続を行う
 const pool = require('./database/connection');
 
+
+//毎週月曜日の六時にリセット
+const cron = require('node-cron');
+cron.schedule('0 6 * * 1', () => {
+    pool.getConnection(function(err, connection){
+        connection.query(
+            'UPDATE heart SET heart_num = ? WHERE id = 1', [1], function(err, results) {
+                if (err) throw err;
+            }
+        );
+    });
+});
 
 
 //react(frontend)のbuildの中のhtmlファイルを表示するため。frontendのディレクトリでnpm run buildをする必要がある
@@ -22,7 +32,7 @@ app.use(express.static(path.join(__dirname, '../frontend/build')));
 const cors = require("cors");
 app.use(cors());
 
-
+//routing
 app.get("/nowHeart", (req, res) => {
     
     pool.getConnection(function(err, connection){
@@ -51,6 +61,7 @@ app.get("/showMessages", (req, res) => {
 
     });
 });
+
 
 //react(frontend)のindex.htmlが表示されるようにする
 app.get('*', (req, res) => {
@@ -103,6 +114,7 @@ io.on("connection", (socket) => { // ブラウザから接続されたときの�
         
     });
 });
+
 
 server.listen(port, () => {
     console.log("listen on 8000");
