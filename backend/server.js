@@ -16,11 +16,16 @@ const pool = require('./database/connection');
 const cron = require('node-cron');
 cron.schedule('0 6 * * 1', () => {
     pool.getConnection(function(err, connection){
+        //heartのサイズをリセット
         connection.query(
             'UPDATE heart SET heart_num = ? WHERE id = 1', [1], function(err, results) {
                 if (err) throw err;
             }
         );
+        //メッセージをリセット
+        connection.query('TRUNCATE TABLE message', function (err, result) {  
+            if (err) throw err;  
+        });
     });
 });
 
