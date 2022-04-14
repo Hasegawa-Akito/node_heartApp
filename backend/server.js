@@ -100,7 +100,10 @@ io.on("connection", (socket) => { // ブラウザから接続されたときの�
 
                 connection.query("select * from heart", function (err, results, fields) {  
                     if (err) throw err;
-                    const heart_num = results[0].heart_num + 1;
+
+                    const thanksJudge = require("./apppFunction/thanksJudge");
+                    const plusHeart = thanksJudge.plusHeart(); 
+                    const heart_num = results[0].heart_num + plusHeart;
                     
                     connection.query(
                         'UPDATE heart SET heart_num = ? WHERE id = 1', [heart_num], function(err, results) {
