@@ -101,8 +101,9 @@ io.on("connection", (socket) => { // ブラウザから接続されたときの�
                 connection.query("select * from heart", function (err, results, fields) {  
                     if (err) throw err;
 
+                    //ありがとう判別関数
                     const thanksJudge = require("./apppFunction/thanksJudge");
-                    const plusHeart = thanksJudge.plusHeart(); 
+                    const plusHeart = thanksJudge.plusHeart(message); 
                     const heart_num = results[0].heart_num + plusHeart;
                     
                     connection.query(
