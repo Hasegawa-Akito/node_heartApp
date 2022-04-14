@@ -102,7 +102,7 @@ io.on("connection", (socket) => { // ブラウザから接続されたときの�
                     if (err) throw err;
 
                     //ありがとう判別関数
-                    const thanksJudge = require("./apppFunction/thanksJudge");
+                    const thanksJudge = require("./appFunction/thanksJudge");
                     const plusHeart = thanksJudge.plusHeart(message); 
                     const heart_num = results[0].heart_num + plusHeart;
                     
