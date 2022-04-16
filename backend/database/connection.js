@@ -20,7 +20,7 @@ pool.getConnection(function(err, connection){
     });
 
     //message tableを作成
-    connection.query('CREATE TABLE IF NOT EXISTS message(id INT AUTO_INCREMENT PRIMARY KEY NOT NULL, roomId INT NOT NULL,  message VARCHAR(255) NOT NULL, createTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP)', function (err, result) {  
+    connection.query('CREATE TABLE IF NOT EXISTS message(id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,  message VARCHAR(255) NOT NULL, createTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP)', function (err, result) {  
         if (err) throw err;  
         console.log('ok');  
     });

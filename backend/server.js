@@ -95,7 +95,7 @@ io.on("connection", (socket) => { // ブラウザから接続されたときの�
 
     socket.on("message", (message) => {
         pool.getConnection(function(err, connection){
-            connection.query("INSERT INTO message(roomId, message) VALUES(?,?)", [1, message], function (err, results, fields) {  
+            connection.query("INSERT INTO message(message) VALUES(?)", [message], function (err, results, fields) {  
                 if (err) throw err;
 
                 connection.query("select * from heart", function (err, results, fields) {  
